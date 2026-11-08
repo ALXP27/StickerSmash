@@ -1,14 +1,26 @@
-import { Text, View, StyleSheet } from 'react-native';
-import { Link } from 'expo-router';
+import { Platform, View, StyleSheet } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+
+import Button from '@/components/button';
+import ImageViewer from '@/components/image-viewer';
+
+const PlaceholderImage = require('@/assets/images/background-image.png');
 
 export default function Index() {
   return (
-    <View style={styles.container}>
-      <Text style={styles.text}>Home screen</Text>
-      <Link href="/about" style={styles.button}>
-        Go to About screen
-      </Link>
-    </View>
+    <SafeAreaView style={styles.container}>
+      <View style={styles.imageContainer}>
+        <ImageViewer imgSource={PlaceholderImage} />
+      </View>
+      <View style={styles.footerContainer}>
+        <Button
+          theme="primary"
+          label="Choose a photo"
+          onPress={() => alert('You pressed a button.')}
+        />
+        <Button label="Use this photo" onPress={() => alert('You pressed a button.')} />
+      </View>
+    </SafeAreaView>
   );
 }
 
@@ -17,14 +29,13 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#25292e',
     alignItems: 'center',
-    justifyContent: 'center',
   },
-  text: {
-    color: '#fff',
+  imageContainer: {
+    flex: 1,
+    paddingTop: Platform.select({ web: 96, default: 20 }),
   },
-  button: {
-    fontSize: 20,
-    textDecorationLine: 'underline',
-    color: '#fff',
+  footerContainer: {
+    flex: 1 / 3,
+    alignItems: 'center',
   },
 });
